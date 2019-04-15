@@ -2,3 +2,12 @@
   max-height: 35vh;
   overflow: hidden;
 }
+.slider_container{
+  position: relative;
+  ion-slides{
+    height:100px;
+    background: #e8e8e8;
+    border-bottom: 2px solid #a9a9a9;
+    --bullet-background: var(--ion-color-step-200,#000000);
+  }
+}
