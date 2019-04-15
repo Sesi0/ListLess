@@ -7,5 +7,19 @@
 </ion-header>
 
 <ion-content>
-    
+  <div class="slider_container todo_list_slider">
+    <ion-slides #todo_list pager="true" [options]="todo_slide_options">
+      <ion-slide >
+        <h1>List 1</h1>
+      </ion-slide>
+      <ion-slide>
+        <h1>List 2</h1>
+      </ion-slide>
+      <ion-slide>
+        <h1>List 3</h1>
+      </ion-slide>
+    </ion-slides>
+    <div class="swiper-button-next" (click)="nextSlide()"></div>
+    <div class="swiper-button-prev" (click)="prevSlide()"></div>
+  </div>
 </ion-content>
