@@ -1,14 +1,14 @@
-import { ListItemComponent } from './../app/components/list-item/list-item.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
+import { TransactionItemComponent } from './balance/transaction-item/transaction-item.component';
 
 @NgModule({
-  declarations: [ListItemComponent],
+  declarations: [TransactionItemComponent],
   imports: [
     IonicModule,
     CommonModule,
   ],
-  exports: [ListItemComponent]
+  exports: [TransactionItemComponent]
 })
 export class ComponentsModule { }
