@@ -6,12 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { TodoPage } from './todo.page';
 
 @NgModule({
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    RouterModule.forChild([{ path: '', component: TodoPage }])
-  ],
-  declarations: [TodoPage]
+	imports: [ IonicModule, CommonModule, FormsModule, RouterModule.forChild([ { path: '', component: TodoPage } ]) ],
+	declarations: [ TodoPage ]
 })
 export class TodoPageModule {}
