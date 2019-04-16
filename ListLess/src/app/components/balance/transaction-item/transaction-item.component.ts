@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TransactionItemComponent implements OnInit {
 
-  @Input() transaction: Transaction = new Transaction();
+  @Input() transaction: Transaction;
 
   constructor() { }
 
