@@ -19,45 +19,51 @@ export class StorageService {
 
 	constructor(private storage: Storage) {}
 	//Add shopping item
-	addShoppingItem(item: ShoppingItemModel, ShoppingListId: number): Promise<any> {
-		return this.storage.get(ShoppingSectionItemsKey).then((items: ShoppingSectionItemModel[]) => {
-			if (items) {
-        for (let i of items)
+	addShoppingItem(ItemToAdd: ShoppingItemModel, ShoppingListId: number): Promise<any> {
+		return this.storage.get(ShoppingSectionItemsKey).then((sections: ShoppingSectionItemModel[]) => {
+			if (sections) {
+        for (let section of sections)
         {
-          if(i.id === ShoppingListId)
+          if(section.id === ShoppingListId)
           {
-            i.items.push(item);
+            section.items.push(ItemToAdd);
+            section.total = section.total + ItemToAdd.quantity * ItemToAdd.estimatedPrice;
           }
         }
-        return this.storage.set(ShoppingSectionItemsKey, items);
+        return this.storage.set(ShoppingSectionItemsKey, sections);
 			} else {
 				return null
 			}
 		});
 	}
 	// Update a Shopping item
-	updateShoppingItem(item: ShoppingItemModel, ShoppingListId: number): Promise<any> {
-		return this.storage.get(ShoppingSectionItemsKey).then((items: ShoppingSectionItemModel[]) => {
-			if (items) {
-        let UpdatedList: ShoppingItemModel[];
-        for (let i of items)
+	updateShoppingItem(ItemToUpdate: ShoppingItemModel, ShoppingSectionId: number): Promise<any> {
+		return this.storage.get(ShoppingSectionItemsKey).then((sections: ShoppingSectionItemModel[]) => {
+			if (sections) {
+        let UpdatedItems: ShoppingItemModel[];
+        for (let section of sections)
         {
-          if(i.id === ShoppingListId)
+          if(section.id === ShoppingSectionId)
           {
-            for(let i2 of i.items)
+            for(let i2 of section.items)
             {
-              if(i2.id === item.id)
+              if(i2.id === ItemToUpdate.id)
               {
-                UpdatedList.push(item);
+                UpdatedItems.push(ItemToUpdate);
               }
               else{
-                UpdatedList.push(i2);
+                UpdatedItems.push(i2);
               }
             }
-            i.items = UpdatedList;
+            section.items = UpdatedItems;
+            section.total = 0;
+            for (let item of section.items)
+            {
+              section.total = section.total + item.quantity * item.estimatedPrice;
+            }
           }
         }
-        return this.storage.set(ShoppingSectionItemsKey, items);
+        return this.storage.set(ShoppingSectionItemsKey, sections);
 			} else {
 				return null
 			}
@@ -66,145 +72,161 @@ export class StorageService {
   
 	// Delete Shopping Item
 	deleteShoppingItem(item: ShoppingItemModel, ShoppingListId: number): Promise<any> {
-		return this.storage.get(ShoppingSectionItemsKey).then((items: ShoppingSectionItemModel[]) => {
-			if (items) {
+		return this.storage.get(ShoppingSectionItemsKey).then((sections: ShoppingSectionItemModel[]) => {
+			if (sections) {
         let UpdatedList: ShoppingItemModel[];
-        for (let i of items)
+        for (let section of sections)
         {
-          if(i.id === ShoppingListId)
+          if(section.id === ShoppingListId)
           {
-            for(let i2 of i.items)
+            for(let i2 of section.items)
             {
               if(i2.id !== item.id)
               {
                 UpdatedList.push(i2);
               }
             }
-            i.items = UpdatedList;
+            section.items = UpdatedList;
+            section.total = 0;
+            for (let item of section.items)
+            {
+              section.total = section.total + item.quantity * item.estimatedPrice;
+            }
           }
         }
-        return this.storage.set(ShoppingSectionItemsKey, items);
+        return this.storage.set(ShoppingSectionItemsKey, sections);
 			} else {
 				return null
 			}
 		});
   }
   // add todo item
-  addToDoItem(item: TodoItemModel, ToDoListId: number) : Promise<any>
+  addToDoItem(ItemToAdd: TodoItemModel, ToDoListId: number) : Promise<any>
   {
-    return this.storage.get(ToDoListSectionItemsKey).then((items: TodoSectionItemModel[]) => {
-			if (items) {
-        for (let i of items)
+    return this.storage.get(ToDoListSectionItemsKey).then((sections: TodoSectionItemModel[]) => {
+			if (sections) {
+        for (let section of sections)
         {
-          if(i.id === ToDoListId)
+          if(section.id === ToDoListId)
           {
-            i.items.push(item);
+            section.items.push(ItemToAdd);
           }
         }
-        return this.storage.set(ShoppingSectionItemsKey, items);
+        return this.storage.set(ToDoListSectionItemsKey, sections);
 			} else {
 				return null
 			}
 		});
   }
   // update todo item
-  upddateToDoItem(item: TodoItemModel, ToDoListId: number): Promise<any> {
-		return this.storage.get(ToDoListSectionItemsKey).then((items: TodoSectionItemModel[]) => {
-			if (items) {
+  upddateToDoItem(ItemToUpdate: TodoItemModel, ToDoListId: number): Promise<any> {
+		return this.storage.get(ToDoListSectionItemsKey).then((sections: TodoSectionItemModel[]) => {
+			if (sections) {
         let UpdatedList: TodoItemModel[];
-        for (let i of items)
+        for (let section of sections)
         {
-          if(i.id === ToDoListId)
+          if(section.id === ToDoListId)
           {
-            for(let i2 of i.items)
+            for(let i2 of section.items)
             {
-              if(i2.id === item.id)
+              if(i2.id === ItemToUpdate.id)
               {
-                UpdatedList.push(item);
+                UpdatedList.push(ItemToUpdate);
               }
               else{
                 UpdatedList.push(i2);
               }
             }
-            i.items = UpdatedList;
+            section.items = UpdatedList;
           }
         }
-        return this.storage.set(ToDoListSectionItemsKey, items);
+        return this.storage.set(ToDoListSectionItemsKey, sections);
 			} else {
 				return null
 			}
 		});
   }
   // delete a todo item
-  deleteToDoItem(item: TodoItemModel, ToDoListId: number): Promise<any> {
-		return this.storage.get(ToDoListSectionItemsKey).then((items: TodoSectionItemModel[]) => {
-			if (items) {
+  deleteToDoItem(ItemToDelete: TodoItemModel, ToDoListId: number): Promise<any> {
+		return this.storage.get(ToDoListSectionItemsKey).then((sections: TodoSectionItemModel[]) => {
+			if (sections) {
         let UpdatedList: TodoItemModel[];
-        for (let i of items)
+        for (let section of sections)
         {
-          if(i.id === ToDoListId)
+          if(section.id === ToDoListId)
           {
-            for(let i2 of i.items)
+            for(let i2 of section.items)
             {
-              if(i2.id === item.id)
+              if(i2.id === ItemToDelete.id)
               {
-                UpdatedList.push(item);
+                UpdatedList.push(ItemToDelete);
               }
               else{
                 UpdatedList.push(i2);
               }
             }
-            i.items = UpdatedList;
+            section.items = UpdatedList;
           }
         }
-        return this.storage.set(ToDoListSectionItemsKey, items);
+        return this.storage.set(ToDoListSectionItemsKey, sections);
 			} else {
 				return null
 			}
 		});
   }
-  //create a transaction item
-  addTransactionItem(item: TransactionItemModel, AccountId: number) : Promise<any>
+  // Get all to do items for current date
+  /*getToDoItemsForCurrentDate() : Promise<any>
   {
-    return this.storage.get(AccountItemsKey).then((items: AccountItemModel[]) => {
-			if (items) {
-        for (let i of items)
+
+  }*/
+  //create a transaction item
+  addTransactionItem(TransactionToAdd: TransactionItemModel, AccountId: number) : Promise<any>
+  {
+    return this.storage.get(AccountItemsKey).then((accounts: AccountItemModel[]) => {
+			if (accounts) {
+        for (let account of accounts)
         {
-          if(i.id === AccountId)
+          if(account.id === AccountId)
           {
-            i.transactions.push(item);
+            account.transactions.push(TransactionToAdd);
+            account.balance = account.balance + TransactionToAdd.value;
           }
         }
-        return this.storage.set(ShoppingSectionItemsKey, items);
+        return this.storage.set(AccountItemsKey, accounts);
 			} else {
 				return null
 			}
 		});
   }
   //Update Transaction item
-  updateTransactionItem(item: TransactionItemModel, AccountId: number) : Promise<any>
+  updateTransactionItem(TransactionToUpdate: TransactionItemModel, AccountId: number) : Promise<any>
   {
-    return this.storage.get(AccountItemsKey).then((items: AccountItemModel[]) => {
-			if (items) {
+    return this.storage.get(AccountItemsKey).then((accounts: AccountItemModel[]) => {
+			if (accounts) {
         let UpdatedList: TransactionItemModel[];
-        for (let i of items)
+        for (let account of accounts)
         {
-          if(i.id === AccountId)
+          if(account.id === AccountId)
           {
-            for(let i2 of i.transactions)
+            for(let i2 of account.transactions)
             {
-              if(i2.id === item.id)
+              if(i2.id === TransactionToUpdate.id)
               {
-                UpdatedList.push(item);
+                UpdatedList.push(TransactionToUpdate);
               }
               else{
                 UpdatedList.push(i2);
               }
             }
-            i.transactions = UpdatedList;
+            account.transactions = UpdatedList;
+            account.balance = 0;
+            for ( let transaction of account.transactions)
+            {
+              account.balance = account.balance + transaction.value;
+            }
           }
         }
-        return this.storage.set(ShoppingSectionItemsKey, items);
+        return this.storage.set(AccountItemsKey, accounts);
 			} else {
 				return null
 			}
@@ -213,38 +235,38 @@ export class StorageService {
   //Delete TransactionItem
   deleteTransactionItem(id: number, AccountId: number) : Promise<any>
   {
-    return this.storage.get(AccountItemsKey).then((items: AccountItemModel[]) => {
-			if (items) {
+    return this.storage.get(AccountItemsKey).then((accounts: AccountItemModel[]) => {
+			if (accounts) {
         let UpdatedList: TransactionItemModel[];
-        for (let i of items)
+        for (let account of accounts)
         {
-          if(i.id === AccountId)
+          if(account.id === AccountId)
           {
-            for(let i2 of i.transactions)
+            for(let i2 of account.transactions)
             {
               if(i2.id !== id)
               {
                 UpdatedList.push(i2);
               }
             }
-            i.transactions = UpdatedList;
+            account.transactions = UpdatedList;
           }
         }
-        return this.storage.set(ShoppingSectionItemsKey, items);
+        return this.storage.set(AccountItemsKey, accounts);
 			} else {
 				return null
 			}
 		});
   }
   // add Shopping list
-  addShoppingList(item: ShoppingSectionItemModel) : Promise<ShoppingSectionItemModel>
+  addShoppingList(ShoppingListToAdd: ShoppingSectionItemModel) : Promise<ShoppingSectionItemModel>
   {
-    return this.storage.get(ShoppingSectionItemsKey).then((items: ShoppingSectionItemModel[]) => {
-			if (items) {
-				items.push(item);
-				return this.storage.set(ShoppingSectionItemsKey, items);
+    return this.storage.get(ShoppingSectionItemsKey).then((sections: ShoppingSectionItemModel[]) => {
+			if (sections) {
+				sections.push(ShoppingListToAdd);
+				return this.storage.set(ShoppingSectionItemsKey, sections);
 			} else {
-				return this.storage.set(ShoppingSectionItemsKey, [ item ]);
+				return this.storage.set(ShoppingSectionItemsKey, [ ShoppingListToAdd ]);
 			}
 		});
   }
@@ -254,21 +276,21 @@ export class StorageService {
     return this.storage.get(ShoppingSectionItemsKey);
   }
   //update shopping list
-  updateShoppingList(item: ShoppingSectionItemModel) : Promise<any>
+  updateShoppingList(ShoppingListToupdate: ShoppingSectionItemModel) : Promise<any>
   {
-    return this.storage.get(ShoppingSectionItemsKey).then((items: ShoppingSectionItemModel[]) => {
-			if (!items || items.length === 0) {
+    return this.storage.get(ShoppingSectionItemsKey).then((sections: ShoppingSectionItemModel[]) => {
+			if (!sections || sections.length === 0) {
 				return null;
 			} else {
         let newItems: ShoppingSectionItemModel[];
-        for (let i of items)
+        for (let section of sections)
         {
-          if(i.id === item.id)
+          if(section.id === ShoppingListToupdate.id)
           {
-            newItems.push(item);
+            newItems.push(ShoppingListToupdate);
           }
           else{
-            newItems.push(i);
+            newItems.push(section);
           }
         }
         return this.storage.set(ShoppingSectionItemsKey, newItems);
@@ -278,16 +300,16 @@ export class StorageService {
   //delete Shopping List
   deleteShoppingList(id: number) : Promise<any>
   {
-    return this.storage.get(ShoppingSectionItemsKey).then((items: ShoppingSectionItemModel[]) => {
-			if (!items || items.length === 0) {
+    return this.storage.get(ShoppingSectionItemsKey).then((sections: ShoppingSectionItemModel[]) => {
+			if (!sections || sections.length === 0) {
 				return null;
 			} else {
         let newItems: ShoppingSectionItemModel[];
-        for (let i of items)
+        for (let section of sections)
         {
-          if(i.id !== id)
+          if(section.id !== id)
           {
-            newItems.push(i);
+            newItems.push(section);
           }
         }
         return this.storage.set(ShoppingSectionItemsKey, newItems);
@@ -295,16 +317,16 @@ export class StorageService {
 		});
   }
   // add ToDo List
-  addToDoList(item: TodoSectionItemModel)
+  addToDoList(SectionToAdd: TodoSectionItemModel)
   {
-    return this.storage.get(ToDoListSectionItemsKey).then((items: TodoSectionItemModel[]) =>{
-      if(items)
+    return this.storage.get(ToDoListSectionItemsKey).then((sections: TodoSectionItemModel[]) =>{
+      if(sections)
       {
-        items.push(item);
-        return this.storage.set(ToDoListSectionItemsKey, items);
+        sections.push(SectionToAdd);
+        return this.storage.set(ToDoListSectionItemsKey, sections);
       }
       else{
-        return this.storage.set(ToDoListSectionItemsKey, [item]);
+        return this.storage.set(ToDoListSectionItemsKey, [SectionToAdd]);
       }
     });
   }
@@ -314,23 +336,23 @@ export class StorageService {
     return this.storage.get(ToDoListSectionItemsKey);
   }
   // update ToDo lsit
-  updateToDoList(item: TodoSectionItemModel) : Promise<any>
+  updateToDoList(SectionToUpdate: TodoSectionItemModel) : Promise<any>
   {
-    return this.storage.get(ToDoListSectionItemsKey).then((items: TodoSectionItemModel[]) =>{
-      if(!items || items.length === 0)
+    return this.storage.get(ToDoListSectionItemsKey).then((sections: TodoSectionItemModel[]) =>{
+      if(!sections || sections.length === 0)
       {
         return null;
       }
       else {
         let UpdatedLsit: TodoSectionItemModel[];
-        for(let i of items)
+        for(let section of sections)
         {
-          if(i.id === item.id)
+          if(section.id === SectionToUpdate.id)
           {
-            UpdatedLsit.push(item);
+            UpdatedLsit.push(SectionToUpdate);
           }
           else{
-            UpdatedLsit.push(i);
+            UpdatedLsit.push(section);
           }
         }
         return this.storage.set(ToDoListSectionItemsKey,UpdatedLsit);
@@ -340,18 +362,18 @@ export class StorageService {
   // delete ToDo list
   deleteToDoList(id: number) : Promise<any>
   {
-    return this.storage.get(ToDoListSectionItemsKey).then((items: TodoSectionItemModel[]) =>{
-      if(!items || items.length === 0)
+    return this.storage.get(ToDoListSectionItemsKey).then((sections: TodoSectionItemModel[]) =>{
+      if(!sections || sections.length === 0)
       {
         return null;
       }
       else {
         let UpdatedLsit: TodoSectionItemModel[];
-        for(let i of items)
+        for(let section of sections)
         {
-          if(i.id !== id)
+          if(section.id !== id)
           {
-            UpdatedLsit.push(i);
+            UpdatedLsit.push(section);
           }
         }
         return this.storage.set(ToDoListSectionItemsKey,UpdatedLsit);
@@ -359,16 +381,16 @@ export class StorageService {
     });
   }
   // add an account
-  addAccount(item: AccountItemModel) : Promise<AccountItemModel>
+  addAccount(AccountToAdd: AccountItemModel) : Promise<AccountItemModel>
   {
-    return this.storage.get(AccountItemsKey).then((items: AccountItemModel[]) =>{
-      if(items)
+    return this.storage.get(AccountItemsKey).then((accounts: AccountItemModel[]) =>{
+      if(accounts)
       {
-        items.push(item);
-        return this.storage.set(AccountItemsKey, items);
+        accounts.push(AccountToAdd);
+        return this.storage.set(AccountItemsKey, accounts);
       }
       else{
-        return this.storage.set(AccountItemsKey, [item]);
+        return this.storage.set(AccountItemsKey, [AccountToAdd]);
       }
     });
   }
@@ -378,23 +400,23 @@ export class StorageService {
     return this.storage.get(AccountItemsKey);
   }
   //Update an account
-  updateAccount(item: AccountItemModel) : Promise<any>
+  updateAccount(AccountToUpdate: AccountItemModel) : Promise<any>
   {
-    return this.storage.get(AccountItemsKey).then((items: AccountItemModel[]) =>{
-      if(!items || items.length === 0)
+    return this.storage.get(AccountItemsKey).then((accounts: AccountItemModel[]) =>{
+      if(!accounts || accounts.length === 0)
       {
         return null;
       }
       else {
         let UpdatedLsit: AccountItemModel[];
-        for(let i of items)
+        for(let account of accounts)
         {
-          if(i.id === item.id)
+          if(account.id === AccountToUpdate.id)
           {
-            UpdatedLsit.push(item);
+            UpdatedLsit.push(AccountToUpdate);
           }
           else{
-            UpdatedLsit.push(i);
+            UpdatedLsit.push(account);
           }
         }
         return this.storage.set(AccountItemsKey,UpdatedLsit);
@@ -404,18 +426,18 @@ export class StorageService {
   //Delete an account
   dleteAccount(id: number) : Promise<any>
   {
-    return this.storage.get(AccountItemsKey).then((items: AccountItemModel[]) =>{
-      if(!items || items.length === 0)
+    return this.storage.get(AccountItemsKey).then((accounts: AccountItemModel[]) =>{
+      if(!accounts || accounts.length === 0)
       {
         return null;
       }
       else {
         let UpdatedLsit: AccountItemModel[];
-        for(let i of items)
+        for(let account of accounts)
         {
-          if(i.id === id)
+          if(account.id === id)
           {
-            UpdatedLsit.push(i);
+            UpdatedLsit.push(account);
           }
         }
         return this.storage.set(AccountItemsKey,UpdatedLsit);
