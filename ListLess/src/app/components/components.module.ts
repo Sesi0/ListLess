@@ -1,3 +1,5 @@
+import { ShoppingSectionItemComponent } from './shopping/shopping-section-item/shopping-section-item.component';
+import { ShoppingItemComponent } from './shopping/shopping-item/shopping-item.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -7,11 +9,11 @@ import { TodoItemComponent } from './todo/todo-item/todo-item.component';
 import { TodoSectionItemComponent } from './todo/todo-section-item/todo-section-item.component';
 
 @NgModule({
-  declarations: [TransactionItemComponent, TransactionItemsComponent, TodoItemComponent, TodoSectionItemComponent],
+  declarations: [TransactionItemComponent, TransactionItemsComponent, TodoItemComponent, TodoSectionItemComponent, ShoppingItemComponent, ShoppingSectionItemComponent],
   imports: [
     IonicModule,
     CommonModule,
   ],
-  exports: [TransactionItemComponent, TransactionItemsComponent, TodoItemComponent, TodoSectionItemComponent]
+  exports: [TransactionItemComponent, TransactionItemsComponent, TodoItemComponent, TodoSectionItemComponent, ShoppingItemComponent, ShoppingSectionItemComponent]
 })
 export class ComponentsModule { }

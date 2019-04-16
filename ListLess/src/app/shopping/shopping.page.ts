@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ShoppingItemModel } from './../services/models/shopping-item-model';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-shopping',
@@ -6,5 +7,26 @@ import { Component } from '@angular/core';
   styleUrls: ['shopping.page.scss']
 })
 
-export class ShoppingPage {}
+export class ShoppingPage implements OnInit {
+	items: ShoppingItemModel[];
+  title: string;
 
+	ngOnInit(): void {
+    this.title = "Item List";
+
+    this.items = new Array();
+
+    for (let index = 0; index < 5; index++) {
+      this.items.push({
+        title: 'Item' + index,
+        estimatedPrice: 10,
+        id: 0,
+        isBought: false,
+        parentid: 0,
+        quantity: 3
+      });
+      
+    }
+    
+	}
+}
