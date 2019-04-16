@@ -4,7 +4,7 @@ ion-item{
 
     .item_list_type{
         ion-icon{
-            background: #f1c40f;
+            background: #3498db;
             border-radius: 30px;
             padding: 5px;
             font-size: 20px;
@@ -18,11 +18,4 @@ ion-item{
         font-size: 20px;
     }
 
-    .delete_list_item{
-        background: #f04141;
-        
-        ion-icon{
-            color: #fff;
-        }
-    }
 }
