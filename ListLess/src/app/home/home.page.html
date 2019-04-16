@@ -7,8 +7,9 @@
 </ion-header>
 
 <ion-content>
+  <h2>To-Do</h2>
   <div class="slider_container todo_list_slider">
-    <ion-slides #todo_list pager="true" [options]="todo_slide_options">
+    <ion-slides #todo_list pager="true" [options]="slide_options">
       <ion-slide >
         <h1>List 1</h1>
       </ion-slide>
@@ -19,7 +20,41 @@
         <h1>List 3</h1>
       </ion-slide>
     </ion-slides>
-    <div class="swiper-button-next" (click)="nextSlide()"></div>
-    <div class="swiper-button-prev" (click)="prevSlide()"></div>
+    <div class="swiper-button-next" (click)="nextSlide(todo_slides)"></div>
+    <div class="swiper-button-prev" (click)="prevSlide(todo_slides)"></div>
+  </div>
+
+  <h2>Shopping</h2>
+  <div class="slider_container shopping_list_slider">
+    <ion-slides #shopping_list pager="true" [options]="slide_options">
+      <ion-slide>
+        <h1>List 1</h1>
+      </ion-slide>
+      <ion-slide>
+        <h1>List 2</h1>
+      </ion-slide>
+      <ion-slide>
+        <h1>List 3</h1>
+      </ion-slide>
+    </ion-slides>
+    <div class="swiper-button-next" (click)="nextSlide(shopping_slides)"></div>
+    <div class="swiper-button-prev" (click)="prevSlide(shopping_slides)"></div>
+  </div>
+
+  <h2>Balance</h2>
+  <div class="slider_container balance_list_slider">
+    <ion-slides #balance_list pager="true" [options]="slide_options">
+      <ion-slide>
+        <h1>List 1</h1>
+      </ion-slide>
+      <ion-slide>
+        <h1>List 2</h1>
+      </ion-slide>
+      <ion-slide>
+        <h1>List 3</h1>
+      </ion-slide>
+    </ion-slides>
+    <div class="swiper-button-next" (click)="nextSlide(balance_slides)"></div>
+    <div class="swiper-button-prev" (click)="prevSlide(balance_slides)"></div>
   </div>
 </ion-content>

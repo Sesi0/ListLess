@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 
@@ -7,10 +7,17 @@ import { IonSlides } from '@ionic/angular';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss']
 })
-export class HomePage {
-  @ViewChild('todo_list') todo_slides: IonSlides;
+export class HomePage implements OnInit{
 
-  todo_slide_options = {
+
+  ngOnInit(): void {
+    
+  }
+  @ViewChild('todo_list') todo_slides: IonSlides;
+  @ViewChild('shopping_list') shopping_slides: IonSlides;
+  @ViewChild('balance_list') balance_slides: IonSlides;
+
+  slide_options = {
     effect: 'flip'
   };
   
@@ -25,21 +32,17 @@ export class HomePage {
       title: 'List3'
     },
   ];
-
-  nextSlide() {
+ 
+  nextSlideToDo() {
     this.todo_slides.slideNext();
   }
 
-  prevSlide() {
+  prevSlideToDo() {
     this.todo_slides.slidePrev();
   }
 
-  getToDoArray(){
-    return this.todo_list;
-  }
-
   constructor() {
-    //this.todo_list = this.todo_list;
+    
   }
 
 }
