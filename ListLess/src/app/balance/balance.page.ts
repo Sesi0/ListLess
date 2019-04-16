@@ -1,5 +1,5 @@
-import { Transaction } from './../services/balance.service';
 import { Component, OnInit } from '@angular/core';
+import { TransactionItemModel } from '../services/models/transaction-item-model';
 
 @Component({
 	selector: 'app-balance',
@@ -8,19 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BalancePage implements OnInit {
 
-  transactions: Transaction[];
+  transactions: TransactionItemModel[];
   title: string;
   
   ngOnInit(): void {
 		this.title = 'Cash';
 		this.transactions = new Array();
-		let newtrans = new Transaction();
+		let newtrans = new TransactionItemModel();
 		newtrans.icon = 'card';
 		newtrans.title = 'Item1';
 		newtrans.value = 400;
 		newtrans.valueColor = 'primary';
+		newtrans.id = 0;
+		newtrans.parentid = 0;
 		this.transactions.push(newtrans);
-    this.transactions.push({ title: 'Item2', icon: 'trash', value: 300, valueColor: 'danger' });
+    this.transactions.push({ id:1, parentid:1, title: 'Item2', icon: 'trash', value: 300, valueColor: 'danger' });
 	}
 
 	constructor() {}
