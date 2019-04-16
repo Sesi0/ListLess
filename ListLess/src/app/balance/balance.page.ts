@@ -2,7 +2,7 @@ import { TransactionItemsComponent } from './../components/balance/transaction-i
 import { AccountItemModel } from './../services/models/account-item-model';
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../services/storage.service';
-import { TRANSACTION_TYPE } from '../services/models/transaction-item-model';
+import { TRANSACTION_TYPE, TransactionItemModel } from '../services/models/transaction-item-model';
 
 @Component({
 	selector: 'app-balance',
@@ -38,8 +38,8 @@ export class BalancePage implements OnInit {
 		this.refreshItems();
 	}
 
-	menuItemPopup(itemID:number) {
-		alert("Hi! " + itemID);
+	menuSectionItemPopup(item: AccountItemModel) {
+		alert("Hi!");
 	}
 
 	addTransaction(accountid:number) {

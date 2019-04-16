@@ -1,4 +1,5 @@
-import { StorageService } from './../../../services/storage.service';
+import { AccountItemModel } from './../../../services/models/account-item-model';
+import { TransactionItemComponent } from './../transaction-item/transaction-item.component';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TransactionItemModel, TRANSACTION_TYPE } from 'src/app/services/models/transaction-item-model';
 
@@ -15,15 +16,13 @@ export class TransactionItemsComponent {
 	@Output() onSectionItemMenuClicked: EventEmitter<any> = new EventEmitter();
 	@Output() onSectionItemAddClicked: EventEmitter<any> = new EventEmitter();
 
-	sectionMenuWasClicked(itemID: number): void {
-			this.onSectionItemMenuClicked.emit([itemID]);
+	sectionAddWasClicked(item: TransactionItemModel): void {
+		this.onSectionItemAddClicked.emit([ item ]);
 	}
 
-	sectionAddWasClicked(item: TransactionItemModel): void {
-		this.onSectionItemAddClicked.emit([item]);
-}
+	sectionMenuWasClicked(item: AccountItemModel): void {
+		this.onSectionItemMenuClicked.emit([ item ]);
+	}
 
-	constructor() {
-  }
-
+	constructor() {}
 }

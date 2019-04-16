@@ -3,7 +3,7 @@
     <ion-grid>
       <ion-row>
         <ion-col size=2>
-          <ion-button class="header_menu" (click)="menuItemPopup()">
+          <ion-button class="header_menu">
             <ion-icon name="menu"></ion-icon>
           </ion-button>
         </ion-col>
@@ -23,6 +23,6 @@
 </ion-header>
 
 <ion-content>
-  <app-transaction-items *ngFor="let account of accounts"  [id]="account.id" [title]="account.title" [items]="account.transactions" (onSectionItemMenuClicked)="menuItemPopup(account.id)" (onSectionItemAddClicked)="addTransaction(account.id)"></app-transaction-items>
+  <app-transaction-items *ngFor="let account of accounts"  [id]="account.id" [title]="account.title" [items]="account.transactions" (onSectionItemMenuClicked)="menuSectionItemPopup(account)" (onSectionItemAddClicked)="addTransaction(account.id)"></app-transaction-items>
 </ion-content>
 
