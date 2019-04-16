@@ -1,19 +1,19 @@
 <ion-item>
     <ion-grid>
       <ion-row>
-        <ion-col>
+        <ion-col size="2">
           <ion-checkbox checked="{{item.isBought}}"></ion-checkbox>
         </ion-col>
-        <ion-col>
+        <ion-col size="4">
           <ion-title>{{item.title}}</ion-title>
         </ion-col>
-        <ion-col>
+        <ion-col size="1">
             <ion-input>{{item.quantity}}</ion-input>
           </ion-col>
-          <ion-col>
+          <ion-col size="3">
               <ion-input>{{item.estimatedPrice}}</ion-input>
             </ion-col>
-        <ion-col>
+        <ion-col size="2">
             <ion-button color="danger"><ion-icon icon="trash"></ion-icon></ion-button>
           </ion-col>
       </ion-row>

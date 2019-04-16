@@ -81,6 +81,27 @@
         font-size:30px;
         text-align: center;
       }
+      ion-button.header_add{
+        float:right;
+      }
+    }
+  }
+
+  ion-list{
+    ion-header{
+      padding: 0px;
+      color: #fff;
+      background: #3498db;
+      font-size: 25px;
+    }
+
+    .item_list_title{
+      margin-top:10px;
+    }
+
+    .add_more_items{
+      background: #2ecc71;
+      float: right;
     }
   }
   

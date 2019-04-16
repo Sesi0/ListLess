@@ -1,4 +1,17 @@
 <ion-list>
-    <ion-header>{{title}}</ion-header>
+  <ion-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="10">
+          <div class="item_list_title">{{title}}</div>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button class="add_more_items" color="#2ecc71">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-header>
   <app-shopping-item *ngFor="let item of items" [item]="item"></app-shopping-item>
 </ion-list>
