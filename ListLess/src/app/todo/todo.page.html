@@ -23,6 +23,6 @@
 </ion-header>
 
 <ion-content>
-    <app-todo-section-item *ngFor="let todo of todoSections" [title]="todo.title" [items]="todo.items">
+    <app-todo-section-item *ngFor="let todo of todoSections" [title]="todo.title" [items]="todo.items" (onSectionItemMenuClicked)="menuSectionItemPopup(todo)" (onSectionItemAddClicked)="addToDo(todo.id)">
     </app-todo-section-item>
 </ion-content>

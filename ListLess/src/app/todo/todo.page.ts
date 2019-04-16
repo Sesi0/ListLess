@@ -37,6 +37,11 @@ export class TodoPage implements OnInit {
     this.refreshItems();
   }
 
+  addToDo(accountid: number) {
+    this.storageService.addToDoItem({ title: 'Item1', description: 'Description', id: 0, parentid: accountid, isFinished: false, fromDateTime: new Date(), toDateTime: new Date(), }, accountid);
+    this.refreshItems();
+  }
+
     
   
 }
