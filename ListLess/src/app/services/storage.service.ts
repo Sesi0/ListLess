@@ -38,12 +38,12 @@ export class StorageService {
     });
   }
   // get shoppingitems
-  getShoppingItems() : Promise<any>
+  getShoppingItems() : Promise<ShoppingItem[]>
   {
     return this.storage.get(ShoppingItemsKey);
   }
   // get shopping items for a specific shopping list
-  getShoppinglist(ShoppingListId: number)
+  getShoppinglist(ShoppingListId: number) : Promise<ShoppingItem[]>
   {
     return this.storage.get(ShoppingItemsKey).then((items: ShoppingItem[]) =>{
         let newItems: ShoppingItem[];
@@ -58,7 +58,7 @@ export class StorageService {
     });
   }
   // Update a Shopping item
-  updateShoppingItem(item: ShoppingItem)
+  updateShoppingItem(item: ShoppingItem) : Promise<any>
   {
     return this.storage.get(ShoppingItemsKey).then((items: ShoppingItem[]) =>{
       if(!items || items.length === 0)
@@ -82,7 +82,7 @@ export class StorageService {
     });
   }
   // Delete Shopping Item
-  deleteShoppingItem(id:number)
+  deleteShoppingItem(id:number) : Promise<any>
   {
     return this.storage.get(ShoppingItemsKey).then((items: ShoppingItem[]) =>{
       if(!items || items.length === 0)
@@ -102,5 +102,4 @@ export class StorageService {
       }
     });
   }
-
 }
