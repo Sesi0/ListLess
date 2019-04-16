@@ -1,5 +1,5 @@
-import { Transaction } from './../../services/balance.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { TransactionItemModel } from 'src/app/services/models/transaction-item-model';
 
 @Component({
   selector: 'app-transaction-items',
@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TransactionItemsComponent implements OnInit {
 
-  @Input() items: Transaction[];
+  @Input() items: TransactionItemModel[];
   @Input() title: string;
 
   constructor() { }
