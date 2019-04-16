@@ -1,0 +1,28 @@
+ion-item{
+    line-height: 30px;
+    padding: 10px 0px;
+
+    .item_list_type{
+        ion-icon{
+            background: #f1c40f;
+            border-radius: 30px;
+            padding: 5px;
+            font-size: 20px;
+            color: #fff;
+            margin-right: 10px;
+        }
+    }
+    
+
+    ion-text{
+        font-size: 20px;
+    }
+
+    .delete_list_item{
+        background: #f04141;
+        
+        ion-icon{
+            color: #fff;
+        }
+    }
+}
