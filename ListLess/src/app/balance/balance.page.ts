@@ -24,26 +24,37 @@ export class BalancePage implements OnInit {
 		});
 	}
 
-	addAccount() {
-		this.storageService.addAccount({
+	async addAccount() {
+		await this.storageService.addAccount({
 			title: 'Test',
 			balance: 10,
 			color: 'red',
 			id: 0,
-			transactions: [
-				{ title: 'Item1', id: 0, parentid: 0, transactionType: TRANSACTION_TYPE.INCOME, value: 10 }
-			]
+			transactions: []
 		});
 
 		this.refreshItems();
 	}
 
-	menuSectionItemPopup(item: AccountItemModel) {
-		alert("Hi!");
+	async menuSectionItemPopup(ev) {
+		const popoverController = document.querySelector('ion-popover-controller');
+		await popoverController.componentOnReady();
+
+		const popover = await popoverController.create({
+			component: 'app-balance-menu-popupe',
+			event: ev,
+			translucent: true
+		});
+
+		return await popover.present();
 	}
 
-	addTransaction(accountid:number) {
-		this.storageService.addTransactionItem({title: "Item1", id:0, parentid:0, transactionType: TRANSACTION_TYPE.INCOME, value: 37}, accountid);
+	async addTransaction(accountid: number) {
+		await this.storageService.addTransactionItem(
+			{ title: 'Item1', id: 0, parentid: accountid, transactionType: TRANSACTION_TYPE.INCOME, value: 37 },
+			accountid
+		);
+		
 		this.refreshItems();
 	}
 }

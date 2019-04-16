@@ -16,12 +16,12 @@ export class TransactionItemsComponent {
 	@Output() onSectionItemMenuClicked: EventEmitter<any> = new EventEmitter();
 	@Output() onSectionItemAddClicked: EventEmitter<any> = new EventEmitter();
 
-	sectionAddWasClicked(item: TransactionItemModel): void {
-		this.onSectionItemAddClicked.emit([ item ]);
+	sectionAddWasClicked(itemId: number): void {
+		this.onSectionItemAddClicked.emit([ itemId ]);
 	}
 
-	sectionMenuWasClicked(item: AccountItemModel): void {
-		this.onSectionItemMenuClicked.emit([ item ]);
+	sectionMenuWasClicked(event: any): void {
+		this.onSectionItemMenuClicked.emit([ event ]);
 	}
 
 	constructor() {}

@@ -1,3 +1,4 @@
+import { BalanceMenuPopupComponent } from './balance/balance-menu-popup/balance-menu-popup.component';
 import { ShoppingSectionItemComponent } from './shopping/shopping-section-item/shopping-section-item.component';
 import { ShoppingItemComponent } from './shopping/shopping-item/shopping-item.component';
 import { NgModule } from '@angular/core';
@@ -9,11 +10,11 @@ import { TodoItemComponent } from './todo/todo-item/todo-item.component';
 import { TodoSectionItemComponent } from './todo/todo-section-item/todo-section-item.component';
 
 @NgModule({
-  declarations: [TransactionItemComponent, TransactionItemsComponent, TodoItemComponent, TodoSectionItemComponent, ShoppingItemComponent, ShoppingSectionItemComponent],
+  declarations: [TransactionItemComponent, TransactionItemsComponent, TodoItemComponent, TodoSectionItemComponent, ShoppingItemComponent, ShoppingSectionItemComponent, BalanceMenuPopupComponent],
   imports: [
     IonicModule,
     CommonModule,
   ],
-  exports: [TransactionItemComponent, TransactionItemsComponent, TodoItemComponent, TodoSectionItemComponent, ShoppingItemComponent, ShoppingSectionItemComponent]
+  exports: [TransactionItemComponent, TransactionItemsComponent, TodoItemComponent, TodoSectionItemComponent, ShoppingItemComponent, ShoppingSectionItemComponent, BalanceMenuPopupComponent]
 })
 export class ComponentsModule { }
