@@ -1,5 +1,7 @@
+import { AccountItemModel } from './../services/models/account-item-model';
 import { Component, OnInit } from '@angular/core';
-import { TransactionItemModel, TRANSACTION_TYPE } from '../services/models/transaction-item-model';
+import { StorageService } from '../services/storage.service';
+import { TRANSACTION_TYPE } from '../services/models/transaction-item-model';
 
 @Component({
 	selector: 'app-balance',
@@ -7,37 +9,31 @@ import { TransactionItemModel, TRANSACTION_TYPE } from '../services/models/trans
 	styleUrls: [ 'balance.page.scss' ]
 })
 export class BalancePage implements OnInit {
-	transactions: TransactionItemModel[];
-	title: string;
+	accounts: AccountItemModel[] = [];
+
+	constructor(private storageService: StorageService) {}
 
 	ngOnInit(): void {
-		this.title = 'Cash';
-		this.transactions = new Array();
-		let newtrans = new TransactionItemModel();
-		newtrans.icon = 'card';
-		newtrans.title = 'Item1';
-		newtrans.value = 400;
-		newtrans.transactionType = TRANSACTION_TYPE.TRANSFER;
-		newtrans.id = 0;
-		newtrans.parentid = 0;
-		this.transactions.push(newtrans);
-		this.transactions.push({
-			id: 1,
-			parentid: 1,
-			title: 'Item2',
-			icon: 'appstore',
-			value: 300,
-			transactionType: TRANSACTION_TYPE.EXPENSE
-		});
-		this.transactions.push({
-			id: 1,
-			parentid: 1,
-			title: 'Item3',
-			icon: 'cash',
-			value: 10,
-			transactionType: TRANSACTION_TYPE.INCOME
+		this.refreshItems();
+	}
+
+	refreshItems() {
+		this.storageService.getAccounts().then((strAccounts) => {
+			this.accounts = strAccounts;
 		});
 	}
 
-	constructor() {}
+	addAccount() {
+		this.storageService.addAccount({
+			title: 'Test',
+			balance: 10,
+			color: 'red',
+			id: 0,
+			transactions: [
+				{ title: 'Item1', id: 0, parentid: 0, transactionType: TRANSACTION_TYPE.INCOME, value: 10 }
+			]
+		});
+
+		this.refreshItems();
+	}
 }

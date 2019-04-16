@@ -11,10 +11,10 @@
             <ion-input>{{item.quantity}}</ion-input>
           </ion-col>
           <ion-col size="3">
-              <ion-input>{{item.estimatedPrice}}</ion-input>
+              <ion-input color="danger">{{item.estimatedPrice}} $</ion-input>
             </ion-col>
         <ion-col size="2">
-            <ion-button color="danger"><ion-icon icon="trash"></ion-icon></ion-button>
+            <ion-button color="danger" (click)="removeItem()"><ion-icon icon="trash"></ion-icon></ion-button>
           </ion-col>
       </ion-row>
     </ion-grid>

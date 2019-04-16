@@ -7,9 +7,13 @@ import { Component, OnInit, Input } from '@angular/core';
 	styleUrls: [ './shopping-item.component.scss' ]
 })
 export class ShoppingItemComponent implements OnInit {
-  @Input() item: ShoppingItemModel;
+	@Input() item: ShoppingItemModel;
 
 	constructor() {}
 
 	ngOnInit() {}
+
+	removeItem() {
+		alert("Hello!");
+	}
 }

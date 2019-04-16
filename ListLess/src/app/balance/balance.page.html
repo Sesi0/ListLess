@@ -13,7 +13,7 @@
           </ion-title>
         </ion-col>
         <ion-col size=2>
-          <ion-button class="header_add">
+          <ion-button class="header_add" (click)="addAccount()">
             <ion-icon name="add"></ion-icon>
           </ion-button>
         </ion-col>
@@ -23,6 +23,6 @@
 </ion-header>
 
 <ion-content>
-  <app-transaction-items [title]="title" [items]="transactions"></app-transaction-items>
+  <app-transaction-items *ngFor="let account of accounts" [title]="account.title" [items]="account.transactions"></app-transaction-items>
 </ion-content>
 

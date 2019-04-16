@@ -395,7 +395,7 @@ export class StorageService {
     });
   }
   // get Accounts
-  getAccounts() : Promise<AccountItemModel>
+  getAccounts() : Promise<AccountItemModel[]>
   {
     return this.storage.get(AccountItemsKey);
   }
