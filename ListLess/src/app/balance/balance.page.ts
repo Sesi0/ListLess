@@ -1,3 +1,4 @@
+import { TransactionItemsComponent } from './../components/balance/transaction-items/transaction-items.component';
 import { AccountItemModel } from './../services/models/account-item-model';
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../services/storage.service';
@@ -34,6 +35,15 @@ export class BalancePage implements OnInit {
 			]
 		});
 
+		this.refreshItems();
+	}
+
+	menuItemPopup(itemID:number) {
+		alert("Hi! " + itemID);
+	}
+
+	addTransaction(accountid:number) {
+		this.storageService.addTransactionItem({title: "Item1", id:0, parentid:0, transactionType: TRANSACTION_TYPE.INCOME, value: 37}, accountid);
 		this.refreshItems();
 	}
 }
