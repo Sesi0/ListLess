@@ -1,6 +1,8 @@
 import { NavController } from '@ionic/angular';
 import { ShoppingItemModel } from './../services/models/shopping-item-model';
 import { Component, OnInit } from '@angular/core';
+import { ShoppingSectionItemModel } from '../services/models/shopping-section-item-model';
+import { StorageService } from '../services/storage.service';
 
 @Component({
 	selector: 'app-shopping',
@@ -8,25 +10,31 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: [ 'shopping.page.scss' ]
 })
 export class ShoppingPage implements OnInit {
-	items: ShoppingItemModel[];
-	title: string;
+	sections: ShoppingSectionItemModel[] = [];
 
-	constructor() {}
+	constructor(private storageService: StorageService) {}
 
 	ngOnInit(): void {
-		this.title = 'Item List';
+		this.refreshItems();
+	}
 
-		this.items = new Array();
+	refreshItems() {
+		this.storageService.getShoppingLists().then((strShoppingLists) => {
+			this.sections = strShoppingLists;
+		});
+	}
 
-		for (let index = 0; index < 5; index++) {
-			this.items.push({
-				title: 'Item' + index,
-				estimatedPrice: 10,
-				id: 0,
-				isBought: false,
-				parentid: 0,
-				quantity: 3
-			});
-		}
+	addShoppingList() {
+		this.storageService.addShoppingList({
+			title: 'Test',
+			total: 10,
+			color: 'red',
+			id: 0,
+			priorityid: 0,
+			items: [
+				{ title: 'Item1', id: 0, parentid: 0, quantity: 1, estimatedPrice: 10, isBought: false }
+			]
+		});
+		this.refreshItems();
 	}
 }

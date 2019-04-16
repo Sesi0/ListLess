@@ -1,5 +1,7 @@
 import { TodoItemModel } from 'src/app/services/models/todo-item-model';
 import { Component, OnInit } from '@angular/core';
+import { TodoSectionItemModel } from '../services/models/todo-section-item-model';
+import { StorageService } from '../services/storage.service';
 
 @Component({
 	selector: 'app-todo',
@@ -7,26 +9,34 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: [ 'todo.page.scss' ]
 })
 export class TodoPage implements OnInit {
-	todos: TodoItemModel[];
-  title: string;
+	todoSections: TodoSectionItemModel[] = [];
+  
+  constructor(private storageService: StorageService) { }
 
 	ngOnInit(): void {
-    this.title = "Item List";
+    this.refreshItems();
+  }
+  
+  refreshItems() {
+    this.storageService.getToDoLists().then((strTodoLists) => {
+      this.todoSections = strTodoLists;
+    });
+  }
 
-    this.todos = new Array();
+  addToDoSection() {
+    this.storageService.addToDoList({
+      title: 'Test',
+      color: 'red',
+      id: 0,
+      priorityid: 0,
+      items: [
+        { title: 'Item1', description: 'Description' , id: 0, parentid: 0,  isFinished: false, fromDateTime: new Date(), toDateTime: new Date(), }
+      ]
+    });
 
-    for (let index = 0; index < 5; index++) {
-      this.todos.push({
-        title: 'Item' + index,
-        description: 'none',
-        fromDateTime: new Date(),
-        id: 0,
-        isFinished: false,
-        parentid: 0,
-        toDateTime: new Date()
-      });
-      
-    }
+    this.refreshItems();
+  }
+
     
-	}
+  
 }

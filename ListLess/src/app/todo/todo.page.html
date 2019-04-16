@@ -13,7 +13,7 @@
           </ion-title>
         </ion-col>
         <ion-col size=2>
-          <ion-button class="header_add">
+          <ion-button class="header_add" (click)="addToDoSection()">
             <ion-icon name="add"></ion-icon>
           </ion-button>
         </ion-col>
@@ -23,5 +23,6 @@
 </ion-header>
 
 <ion-content>
-    <app-todo-section-item [title]="title" [items]="todos"></app-todo-section-item>
+    <app-todo-section-item *ngFor="let todo of todoSections" [title]="todo.title" [items]="todo.items">
+    </app-todo-section-item>
 </ion-content>
