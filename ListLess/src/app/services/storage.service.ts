@@ -358,7 +358,7 @@ export class StorageService {
     });
   }
   // get ToDo lists
-  getToDoLists() : Promise<TodoSectionItemModel>
+  getToDoLists() : Promise<TodoSectionItemModel[]>
   {
     return this.storage.get(ToDoListSectionItemsKey);
   }
