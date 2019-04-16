@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { ShoppingItemModel } from './models/shopping-item-model';
 import { TodoItemModel } from './models/todo-item-model';
-import { TransactionItemModel} from './models/transaction-item-model';
+import { TransactionItemModel, TRANSACTION_TYPE} from './models/transaction-item-model';
 import { ShoppingSectionItemModel} from './models/shopping-section-item-model';
 import { TodoSectionItemModel } from './models/todo-section-item-model';
 import { AccountItemModel } from './models/account-item-model';
@@ -26,6 +26,7 @@ export class StorageService {
         {
           if(section.id === ShoppingListId)
           {
+            ItemToAdd.id = section.items[section.items.length - 1].id + 1;
             section.items.push(ItemToAdd);
             section.total = section.total + ItemToAdd.quantity * ItemToAdd.estimatedPrice;
           }
@@ -109,6 +110,7 @@ export class StorageService {
         {
           if(section.id === ToDoListId)
           {
+            ItemToAdd.id = section.items[section.items.length - 1].id + 1;
             section.items.push(ItemToAdd);
           }
         }
@@ -180,7 +182,7 @@ export class StorageService {
 
   }*/
   //create a transaction item
-  addTransactionItem(TransactionToAdd: TransactionItemModel, AccountId: number) : Promise<any>
+  addTransactionItem(TransactionToAdd: TransactionItemModel, AccountId: number,ToAccountId:number = -1) : Promise<any>
   {
     return this.storage.get(AccountItemsKey).then((accounts: AccountItemModel[]) => {
 			if (accounts) {
@@ -188,8 +190,32 @@ export class StorageService {
         {
           if(account.id === AccountId)
           {
+            TransactionToAdd.id = account.transactions[account.transactions.length - 1].id + 1;
             account.transactions.push(TransactionToAdd);
-            account.balance = account.balance + TransactionToAdd.value;
+            if(TransactionToAdd.transactionType === TRANSACTION_TYPE.EXPENSE)
+            {
+              account.balance = account.balance - TransactionToAdd.value;
+            }
+            else if(TransactionToAdd.transactionType === TRANSACTION_TYPE.INCOME)
+            {
+              account.balance = account.balance + TransactionToAdd.value;
+            }
+            else if (TransactionToAdd.transactionType === TRANSACTION_TYPE.TRANSFER_TO)
+            {
+              account.balance = account.balance + TransactionToAdd.value;
+            }
+            else
+            {
+              account.balance = account.balance - TransactionToAdd.value;
+              let NewTransaction: TransactionItemModel;
+              NewTransaction.icon = TransactionToAdd.icon;
+              NewTransaction.id = null;
+              NewTransaction.parentid = ToAccountId;
+              NewTransaction.title = TransactionToAdd.title;
+              NewTransaction.value = TransactionToAdd.value;
+              NewTransaction.transactionType = TRANSACTION_TYPE.TRANSFER_TO;
+              this.addTransactionItem(NewTransaction,ToAccountId,AccountId);
+            }
           }
         }
         return this.storage.set(AccountItemsKey, accounts);
@@ -261,6 +287,7 @@ export class StorageService {
   // add Shopping list
   addShoppingList(ShoppingListToAdd: ShoppingSectionItemModel) : Promise<ShoppingSectionItemModel>
   {
+    ShoppingListToAdd.id = this.IncrementShoppingList();
     return this.storage.get(ShoppingSectionItemsKey).then((sections: ShoppingSectionItemModel[]) => {
 			if (sections) {
 				sections.push(ShoppingListToAdd);
@@ -319,6 +346,7 @@ export class StorageService {
   // add ToDo List
   addToDoList(SectionToAdd: TodoSectionItemModel)
   {
+    SectionToAdd.id = this.IncrementToDoList();
     return this.storage.get(ToDoListSectionItemsKey).then((sections: TodoSectionItemModel[]) =>{
       if(sections)
       {
@@ -383,6 +411,7 @@ export class StorageService {
   // add an account
   addAccount(AccountToAdd: AccountItemModel) : Promise<AccountItemModel>
   {
+    AccountToAdd.id = this.incrementAccounts();
     return this.storage.get(AccountItemsKey).then((accounts: AccountItemModel[]) =>{
       if(accounts)
       {
@@ -424,7 +453,7 @@ export class StorageService {
     });
   }
   //Delete an account
-  dleteAccount(id: number) : Promise<any>
+  deleteAccount(id: number) : Promise<any>
   {
     return this.storage.get(AccountItemsKey).then((accounts: AccountItemModel[]) =>{
       if(!accounts || accounts.length === 0)
@@ -444,4 +473,44 @@ export class StorageService {
       }
     });
   }
+  incrementAccounts() : number
+  {
+    this.storage.get(AccountItemsKey,).then((accounts: AccountItemModel[]) =>{
+      if(!accounts || accounts.length === 0)
+      {
+        return 1;
+      }
+      else {
+        return accounts[accounts.length - 1].id + 1;
+      }
+    });
+    return 1;
+  }
+  IncrementShoppingList() : number
+  {
+    this.storage.get(ShoppingSectionItemsKey).then((sections: AccountItemModel[]) =>{
+      if(!sections || sections.length === 0)
+      {
+        return 1;
+      }
+      else {
+        return sections[sections.length - 1].id + 1;
+      }
+    });
+    return 1;
+  }
+  IncrementToDoList() : number
+  {
+    this.storage.get(ToDoListSectionItemsKey).then((sections: AccountItemModel[]) =>{
+      if(!sections || sections.length === 0)
+      {
+        return 1;
+      }
+      else {
+        return sections[sections.length - 1].id + 1;
+      }
+    });
+    return 1;
+  }
 }
+
