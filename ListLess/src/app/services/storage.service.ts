@@ -26,7 +26,13 @@ export class StorageService {
         {
           if(section.id === ShoppingListId)
           {
-            ItemToAdd.id = section.items[section.items.length - 1].id + 1;
+            if(section.items)
+            {
+              ItemToAdd.id = section.items[section.items.length - 1].id + 1;
+            }
+            else{
+              ItemToAdd.id = 1;
+            }
             section.items.push(ItemToAdd);
             section.total = section.total + ItemToAdd.quantity * ItemToAdd.estimatedPrice;
           }
@@ -110,7 +116,13 @@ export class StorageService {
         {
           if(section.id === ToDoListId)
           {
-            ItemToAdd.id = section.items[section.items.length - 1].id + 1;
+            if(section.items)
+            {
+              ItemToAdd.id = section.items[section.items.length - 1].id + 1;
+            }
+            else{
+              ItemToAdd.id = 1;
+            }
             section.items.push(ItemToAdd);
           }
         }
@@ -190,7 +202,13 @@ export class StorageService {
         {
           if(account.id === AccountId)
           {
-            TransactionToAdd.id = account.transactions[account.transactions.length - 1].id + 1;
+            if(account.transactions)
+            {
+              TransactionToAdd.id = account.transactions[account.transactions.length - 1].id + 1;
+            }
+            else{
+              TransactionToAdd.id = 1;
+            }
             account.transactions.push(TransactionToAdd);
             if(TransactionToAdd.transactionType === TRANSACTION_TYPE.EXPENSE)
             {
