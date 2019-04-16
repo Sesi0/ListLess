@@ -208,8 +208,7 @@ export class StorageService {
             {
               account.balance = account.balance - TransactionToAdd.value;
               let NewTransaction: TransactionItemModel;
-              NewTransaction.icon = TransactionToAdd.icon;
-              NewTransaction.id = null;
+              NewTransaction.id = -1;
               NewTransaction.parentid = ToAccountId;
               NewTransaction.title = TransactionToAdd.title;
               NewTransaction.value = TransactionToAdd.value;
