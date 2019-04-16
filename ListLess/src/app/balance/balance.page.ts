@@ -1,20 +1,27 @@
-import { Component } from '@angular/core';
-import { Transaction } from '../services/balance.service';
+import { Transaction } from './../services/balance.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
 	selector: 'app-balance',
 	templateUrl: 'balance.page.html',
 	styleUrls: [ 'balance.page.scss' ]
 })
-export class BalancePage {
-  transaction: Transaction;
+export class BalancePage implements OnInit {
 
-  constructor() {
-    this.transaction = new Transaction();
-    this.transaction.title = "Debit Card to Cash";
-    this.transaction.icon = "card";
-    this.transaction.value = 400;
-    this.transaction.valueColor = "primary";
-  }
+  transactions: Transaction[];
+  title: string;
+  
+  ngOnInit(): void {
+		this.title = 'Cash';
+		this.transactions = new Array();
+		let newtrans = new Transaction();
+		newtrans.icon = 'card';
+		newtrans.title = 'Item1';
+		newtrans.value = 400;
+		newtrans.valueColor = 'primary';
+		this.transactions.push(newtrans);
+    this.transactions.push({ title: 'Item2', icon: 'trash', value: 300, valueColor: 'danger' });
+	}
+
+	constructor() {}
 }
-
