@@ -9,10 +9,6 @@ import { IonSlides } from '@ionic/angular';
 })
 export class HomePage implements OnInit{
 
-
-  ngOnInit(): void {
-    
-  }
   @ViewChild('todo_list') todo_slides: IonSlides;
   @ViewChild('shopping_list') shopping_slides: IonSlides;
   @ViewChild('balance_list') balance_slides: IonSlides;
@@ -20,26 +16,42 @@ export class HomePage implements OnInit{
   slide_options = {
     effect: 'flip'
   };
-  
- todo_list = [
-    {
-      title: 'List1'
-    },
-    {
-      title: 'List2'
-    },
-    {
-      title: 'List3'
-    },
-  ];
+  slide_obj: any;
  
-  nextSlideToDo() {
-    this.todo_slides.slideNext();
+  slideSection(who:number,left:boolean) {
+    switch(who){
+      case 1:{
+        this.slide_obj = this.todo_slides;
+        break;
+      }
+      case 2: {
+        this.slide_obj = this.shopping_slides;
+        break;
+      }
+      case 3: {
+        this.slide_obj = this.balance_slides;
+        break;
+      }
+      default:{
+        this.slide_obj = this.todo_slides;
+      }
+    }
+    
+    if(!left){
+      this.slide_obj.slideNext();
+    }
+    else{
+      this.slide_obj.slidePrev();
+    }
   }
 
-  prevSlideToDo() {
-    this.todo_slides.slidePrev();
-  }
+  balance: any;
+  todo: any;
+  transactions: any;
+
+  ngOnInit(): void { 
+
+ }
 
   constructor() {
     
