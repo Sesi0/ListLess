@@ -11,3 +11,14 @@
     --bullet-background: var(--ion-color-step-200,#000000);
   }
 }
+
+ion-content.home_container{
+  h2{
+    margin: 0px;
+    padding: 20px 0px;
+    font-size: 24px;
+    background: #3498db;
+    color: #fff;
+    text-align: center;
+  }
+}

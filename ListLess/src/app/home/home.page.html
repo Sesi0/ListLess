@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="home_container">
   <h2>To-Do</h2>
   <div class="slider_container todo_list_slider">
     <ion-slides #todo_list pager="true" [options]="slide_options">
@@ -44,8 +44,14 @@
   <h2>Balance</h2>
   <div class="slider_container balance_list_slider">
     <ion-slides #balance_list pager="true" [options]="slide_options">
-      <ion-slide *ngFor="let balance_item of balance">
-        <h3>{{balance_item.title}}</h3>
+      <ion-slide>
+        <h3>test</h3>
+      </ion-slide>
+      <ion-slide>
+        <h3>test</h3>
+      </ion-slide>
+      <ion-slide>
+        <h3>test</h3>
       </ion-slide>
     </ion-slides>
     <div class="swiper-button-next" (click)="slideSection(3,false)"></div>

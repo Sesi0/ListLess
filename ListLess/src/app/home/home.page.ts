@@ -18,17 +18,6 @@ export class HomePage implements OnInit{
     effect: 'flip'
   };
   slide_obj: any;
- todo_list = [
-    {
-      title: 'List1'
-    },
-    {
-      title: 'List2'
-    },
-    {
-      title: 'List3'
-    },
-  ];
  
   slideSection(who:number,left:boolean) {
     switch(who){
@@ -62,27 +51,7 @@ export class HomePage implements OnInit{
   transactions: any;
 
   ngOnInit(): void { 
-    this.transactions = new Array();
-    this.todo = new Array();
-    this.balance = new Array();
-    let todo_list = [
-      {
-        title: 'List1'
-      },
-      {
-        title: 'List2'
-      },
-      {
-        title: 'List3'
-      },
-    ];
-    this.todo.push(todo_list);
-    this.balance.push(todo_list);
-    this.transactions.push(todo_list);
 
-    console.log(this.todo);
-    console.log(this.balance);
-    console.log(this.transactions);
  }
 
   constructor() {
