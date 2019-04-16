@@ -3,7 +3,8 @@ import { BaseItemModel } from './base/base-item-model';
 export enum TRANSACTION_TYPE {
   EXPENSE,
   INCOME,
-  TRANSFER
+  TRANSFER_TO,
+  TRANSFER_FROM
 }
 
 export class TransactionItemModel implements BaseItemModel {
