@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
-import { Transaction } from '../services/balance.service';
 
 @Component({
   selector: 'app-home',
